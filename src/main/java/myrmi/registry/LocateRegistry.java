@@ -34,7 +34,7 @@ public class LocateRegistry {
     }
 
     /**
-     * create a registry locally
+     * create a registry locally,
      * but we still need to wrap around the lookup() method
      */
     public static Registry createRegistry(int port) throws RemoteException {

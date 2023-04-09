@@ -28,36 +28,34 @@ public class RegistryImpl implements Registry {
 
     public Remote lookup(String name) throws RemoteException, NotBoundException {
         System.out.printf("RegistryImpl: lookup(%s)\n", name);
-        //TODO: implement method here
-        throw new NotImplementedException();
+        if (!bindings.containsKey(name))
+            throw new NotBoundException();
+        return bindings.get(name);
     }
 
     public void bind(String name, Remote obj) throws RemoteException, AlreadyBoundException {
         System.out.printf("RegistryImpl: bind(%s)\n", name);
-
-        //TODO: implement method here
-        throw new NotImplementedException();
-
+        if (bindings.containsKey(name))
+            throw new AlreadyBoundException();
+        bindings.put(name, obj);
     }
 
     public void unbind(String name) throws RemoteException, NotBoundException {
         System.out.printf("RegistryImpl: unbind(%s)\n", name);
-
-        //TODO: implement method here
-        throw new NotImplementedException();
-
+        if (!bindings.containsKey(name))
+            throw new NotBoundException();
+        bindings.remove(name);
     }
 
     public void rebind(String name, Remote obj) throws RemoteException {
         System.out.printf("RegistryImpl: rebind(%s)\n", name);
-
-        //TODO: implement method here
-        throw new NotImplementedException();
+        bindings.put(name, obj);
     }
 
     public String[] list() throws RemoteException {
-        //TODO: implement method here
-        throw new NotImplementedException();
+//        //TODO: implement method here
+//        throw new NotImplementedException();
+        return bindings.keySet().toArray(new String[0]);
     }
 
     public static void main(String args[]) {

@@ -36,13 +36,23 @@ public class Skeleton extends Thread {
 
     @Override
     public void run() {
-        /*TODO: implement method here
-         * You need to:
-         * 1. create a server socket to listen for incoming connections
-         * 2. use a handler thread to process each request (use SkeletonReqHandler)
-         *  */
+//        /*TODO: implement method here
+//         * You need to:
+//         * 1. create a server socket to listen for incoming connections
+//         * 2. use a handler thread to process each request (use SkeletonReqHandler)
+//         *  */
+//
+//        throw new NotImplementedException();
+        try (ServerSocket serverSocket = new ServerSocket(this.port, BACKLOG)){
+            while(!this.isInterrupted()){
+                final Socket accept = serverSocket.accept();
+                new SkeletonReqHandler(accept, this.remoteObj, this.objectKey).start();
+            }
 
-        throw new NotImplementedException();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
 
     }
 }

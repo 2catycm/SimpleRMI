@@ -3,14 +3,13 @@ package myrmi.server;
 import myrmi.Remote;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.Socket;
 
 public class SkeletonReqHandler extends Thread {
+
     private Socket socket;
     private Remote obj;
     private int objectKey;
@@ -36,7 +35,16 @@ public class SkeletonReqHandler extends Thread {
          * Hint: you can use an int to represent the cases: -1 invocation error, 0 exception thrown, 1 void method, 2 non-void method
          *
          *  */
-        throw new NotImplementedException();
+//        throw new NotImplementedException();
+        try (final InputStream inputStream = socket.getInputStream();
+             final OutputStream outputStream = socket.getOutputStream()
+        ){
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
 
     }
 }

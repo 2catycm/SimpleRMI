@@ -31,10 +31,10 @@ public class RegistryStubInvocationHandler implements InvocationHandler {
         } catch (InvocationTargetException e) {
             throw e.getCause();
         }
-        if ("lookup".equals(method.getName())) {
-            //TODO: Here you need special handling for invoking ``lookup'' method,
-            // because it returns the stub of a remote object
-        }
+//        if ("lookup".equals(method.getName())) {
+//            //TODO: Here you need special handling for invoking ``lookup'' method,
+//            // because it returns the stub of a remote object
+//        }
         return result;
     }
 }
