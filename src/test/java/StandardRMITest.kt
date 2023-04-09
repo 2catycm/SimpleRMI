@@ -7,7 +7,6 @@ import java.rmi.registry.Registry
 import java.rmi.server.UnicastRemoteObject
 import java.util.*
 
-
 object StandardRMITest {
     @Test
     fun client(): Unit {
