@@ -14,12 +14,8 @@ data class RemoteRef(
     // 指代对象原本所在的位置。
     val objectLocation: InetSocketAddress = RMIServer.instance.objectLocation,
     val objectId: UUID = UUID.randomUUID(),
-    val obj: Remote? = null,
     ) : Serializable {
-    init {
-        if (obj != null)
-            RMIServer.instance[objectId] = obj
-    }
+
 }
 
 
@@ -65,6 +61,6 @@ fun createStubOnServer(remoteObject: Remote): Remote {
     return Proxy.newProxyInstance(
         StubInvocationHandler::class.java.classLoader,
         remoteObject.javaClass.interfaces,
-        StubInvocationHandler(RemoteRef(RMIServer.instance.objectLocation, remoteObject.getId()))
+        StubInvocationHandler(RemoteRef(RMIServer.instance.objectLocation, remoteObject.objectId))
     ) as Remote
 }

@@ -40,9 +40,10 @@ enum class PieceState {
     }
 }
 
-interface ChessBoard  {
+interface ChessBoard {
     val rows: Int
     val cols: Int
+
     // 运算符重载 []
     operator fun get(x: Int, y: Int): PieceState
     operator fun set(x: Int, y: Int, value: PieceState)
@@ -53,8 +54,8 @@ interface ChessBoard  {
 class ChessBoardImpl(
     override val rows: Int,
     override val cols: Int
-) : ChessBoard, Remote{
-    override val remoteRef: RemoteRef by lazy { RemoteRef(obj=this) }
+) : ChessBoard, Remote {
+    override val remoteObj = RemoteObject(self = this)
 
     private val board = Array<PieceState>(rows * cols) { PieceState.Nothing }
 
@@ -67,7 +68,7 @@ class ChessBoardImpl(
     }
 
 
-    override fun display():String{
+    override fun display(): String {
         val stringBuilder = StringBuilder()
         for (i in 0 until rows) {
             for (j in 0 until cols) {
@@ -77,7 +78,6 @@ class ChessBoardImpl(
         }
         return stringBuilder.toString()
     }
-
 
 
     override fun toString(): String {

@@ -7,8 +7,9 @@ import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
 
 interface Remote {
-    val remoteRef:RemoteRef
-    fun getId(): UUID = remoteRef.objectId
+    val remoteObj:RemoteObject
+    val objectId
+        get() = remoteObj.remoteRef.objectId
 }
 
 /**
@@ -19,16 +20,17 @@ interface Remote {
  * 3. 在kotlin中，可以很简洁地实现2.逻辑。您可以让 Q : Remote by RemoteObject(), T1, T2,..., Tn
  *      其中 T1-Tn是您想让Q继承或者实现的其他类。
  */
-//open class RemoteObject (obj:Remote): Remote {
-//    // 每次创建一个对象，注册在RMI服务器中。
-//    // 1. 不能使用hashCode， hashCode只是判断equals的一种简单方法，可能哈希冲突；不能判断对象的内存地址。
-//    // 2. 无法获得java对象的内存地址。
-//    // 3. 于是使用UUID。
-//    init {
-//
-//    }
-//
-//}
+open class RemoteObject (self:Remote) {
+    // 每次创建一个对象，注册在RMI服务器中。
+    // 1. 不能使用hashCode， hashCode只是判断equals的一种简单方法，可能哈希冲突；不能判断对象的内存地址。
+    // 2. 无法获得java对象的内存地址。
+    // 3. 于是使用UUID。
+    val remoteRef = RemoteRef()
+    init {
+        RMIServer.instance[remoteRef.objectId] = self
+    }
+
+}
 
 
 
@@ -51,7 +53,7 @@ class RMIServer private constructor() : MutableMap<UUID, Any> by ConcurrentHashM
                 println("提醒：RMIServer 还没写呢")
                 sleep(10000)
             } catch (e: InterruptedException) {
-
+                e.printStackTrace()
             }
         }
     }
