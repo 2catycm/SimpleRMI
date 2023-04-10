@@ -1,0 +1,3 @@
+package demormi
+
+interface Remote 
