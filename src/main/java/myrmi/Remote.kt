@@ -1,0 +1,3 @@
+package myrmi
+
+interface Remote 
