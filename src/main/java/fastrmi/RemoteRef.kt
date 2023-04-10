@@ -14,7 +14,7 @@ data class RemoteRef(
     // 指代对象原本所在的位置。
     val objectLocation: InetSocketAddress = RMIServer.instance.objectLocation,
     val objectId: UUID = UUID.randomUUID(),
-    ) : Serializable {
+) : Serializable {
 
 }
 
@@ -35,7 +35,9 @@ class StubInvocationHandler(private val ref: RemoteRef) : InvocationHandler, Ser
 
         if (ref.objectLocation == RMIServer.instance.objectLocation) {
             val realObj = RMIServer.instance[ref.objectId]
-            return if (nonNullArgs.isEmpty()) method.invoke(realObj) else method.invoke(realObj, nonNullArgs)
+//            return if (nonNullArgs.isEmpty()) method.invoke(realObj)
+//                else method.invoke(realObj, nonNullArgs)
+            return method.invoke(realObj, *nonNullArgs)
         }
 
         return null
