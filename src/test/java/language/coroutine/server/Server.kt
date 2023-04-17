@@ -1,14 +1,11 @@
-package language.coroutine
+package language.coroutine.server
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import java.io.*
-import java.lang.Thread.interrupted
-import java.net.DatagramSocket
 import java.net.ServerSocket
-import java.util.*
 
 const val PORT = 4090
 
@@ -60,6 +57,7 @@ class CoroutineServer (private val port: Int = PORT ):Thread(){
                         val readObject = objectInputStream.readObject() as DataPacket
                         val newObject = DataPacket(readObject.num, readObject.name, "Server")
                         objectOutputStream.writeObject(newObject)
+                        objectOutputStream.flush()
                         println("Hello from $newObject")
                     }
                     println("Finished")

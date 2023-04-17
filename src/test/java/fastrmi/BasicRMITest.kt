@@ -1,8 +1,8 @@
 package fastrmi
 
-import org.junit.jupiter.api.Test
+import fastrmi.server.Remote
+import fastrmi.server.RemoteObject
 import java.lang.StringBuilder
-import java.util.*
 
 object StandardRMITest {
 //    @Test

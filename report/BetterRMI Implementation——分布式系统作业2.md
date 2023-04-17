@@ -108,6 +108,13 @@ In this assignment, we are required to use **MPI** to implement **parallel matri
 
 In this project, I have learnt a lot. 
 
+- We implement the functions of RMI.
+- We used coroutine to replace threads, which yields a much faster RMI implementation 
+  - that supports 10000 method calls on one remote object simultaneously.
+  - that supports 10000 clients using a remote object simultaneously.
+  - that supports 10000 Remote Objects exist on the server simultaneously.
+- 
+
 # References
 
 [^1]: 

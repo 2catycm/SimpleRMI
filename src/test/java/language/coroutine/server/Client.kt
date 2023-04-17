@@ -1,4 +1,4 @@
-package language.coroutine
+package language.coroutine.server
 
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -37,6 +37,13 @@ class Client {
                 val objectInputStream = ObjectInputStream((socket.getInputStream()))
                 println("Hey from ${objectInputStream.readObject()}")
             }
+    }
+    @Test
+    fun testOnce()= runBlocking{
+        launch {
+            connectAndSayHello(1)
+        }.join()
+
     }
 
     @Test
